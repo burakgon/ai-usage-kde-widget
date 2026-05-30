@@ -9,6 +9,7 @@ from PySide6.QtCore import QObject, QTimer, Signal, Slot, Property, QThreadPool,
 
 from .model import ProviderUsage, ProviderStatus, threshold_color
 from ..usage.local_claude import aggregate_files, LocalClaudeUsage
+from .config import Config
 
 
 def _iso(dt: Optional[datetime]) -> Optional[str]:
@@ -56,6 +57,9 @@ class _FetchJob(QRunnable):
 class Controller(QObject):
     snapshotChanged = Signal()
     badgeChanged = Signal()
+    refreshSecondsChanged = Signal()
+    badgeEnabledChanged = Signal()
+    autostartChanged = Signal()
 
     def __init__(self, providers, local_paths_fn: Callable[[], list[Path]],
                  today_fn: Callable[[], date] = date.today, parent=None):
@@ -69,6 +73,7 @@ class Controller(QObject):
         self._pool = QThreadPool.globalInstance()
         self._timer = QTimer(self)
         self._timer.timeout.connect(self.refresh_async)
+        self._config = Config()
 
     # ---- exposed to QML ----
     @Property(str, notify=snapshotChanged)
@@ -114,6 +119,35 @@ class Controller(QObject):
 
     def badge_color(self) -> str:
         return threshold_color(self.badge_percent())
+
+    @Property(int, notify=refreshSecondsChanged)
+    def refreshSeconds(self):
+        return self._config.refresh_seconds()
+
+    @Slot(int)
+    def setRefreshSeconds(self, value):
+        self._config.set_refresh_seconds(value)
+        self._timer.start(self._config.refresh_seconds() * 1000)
+        self.refreshSecondsChanged.emit()
+
+    @Property(bool, notify=badgeEnabledChanged)
+    def badgeEnabled(self):
+        return self._config.badge_enabled()
+
+    @Slot(bool)
+    def setBadgeEnabled(self, value):
+        self._config.set_badge_enabled(value)
+        self.badgeEnabledChanged.emit()
+        self.badgeChanged.emit()
+
+    @Property(bool, notify=autostartChanged)
+    def autostartEnabled(self):
+        return self._config.autostart_enabled()
+
+    @Slot(bool)
+    def setAutostart(self, value):
+        self._config.set_autostart(value)
+        self.autostartChanged.emit()
 
     def start(self, interval_seconds: int):
         self._timer.start(max(180, interval_seconds) * 1000)

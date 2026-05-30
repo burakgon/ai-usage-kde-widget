@@ -51,3 +51,6 @@ class Config:
         elif path.exists():
             path.unlink()
         self._s.setValue("autostart", bool(enabled))
+
+    def autostart_enabled(self) -> bool:
+        return self._s.value("autostart", False, type=bool)
