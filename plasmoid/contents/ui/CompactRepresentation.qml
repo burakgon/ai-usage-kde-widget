@@ -33,12 +33,11 @@ MouseArea {
         spacing: Kirigami.Units.smallSpacing
 
         Kirigami.Icon {
-            source: Qt.resolvedUrl("../icons/aiusage.svg")
-            isMask: true
-            color: Kirigami.Theme.textColor
-            Layout.preferredWidth: Kirigami.Units.iconSizes.small
-            Layout.preferredHeight: Kirigami.Units.iconSizes.small
+            source: "speedometer"
+            Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
+            Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
             Layout.alignment: Qt.AlignVCenter
+            opacity: 0.9
         }
 
         PlasmaComponents.Label {
