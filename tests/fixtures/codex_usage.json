@@ -1,0 +1,1 @@
+{"rate_limit":{"primary_window":{"used_percent":67,"reset_at":"2026-05-30T15:00:00Z"},"secondary_window":{"used_percent":31,"reset_at":"2026-06-02T00:00:00Z"}},"plan_type":"plus","credits":{"balance":12.5,"has_credits":true},"code_review_rate_limit":{"primary_window":{"used_percent":10,"reset_at":"2026-06-02T00:00:00Z"}}}
