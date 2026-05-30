@@ -1,0 +1,20 @@
+{
+    "KPackageStructure": "Plasma/Applet",
+    "KPlugin": {
+        "Authors": [
+            {
+                "Email": "burakgon@icloud.com",
+                "Name": "Burak"
+            }
+        ],
+        "Category": "System Information",
+        "Description": "Claude Code and Codex subscription usage in your panel",
+        "Icon": "speedometer",
+        "Id": "com.bgn.aiusage",
+        "License": "MIT",
+        "Name": "AI Usage",
+        "Version": "1.0"
+    },
+    "X-Plasma-API-Minimum-Version": "6.0",
+    "X-Plasma-MainScript": "ui/main.qml"
+}
