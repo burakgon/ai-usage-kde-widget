@@ -12,7 +12,7 @@ PlasmaExtras.Representation {
     Layout.minimumWidth: Kirigami.Units.gridUnit * 17
     Layout.minimumHeight: Kirigami.Units.gridUnit * 12
     Layout.preferredWidth: Kirigami.Units.gridUnit * 19
-    Layout.preferredHeight: Kirigami.Units.gridUnit * 22
+    Layout.preferredHeight: Kirigami.Units.gridUnit * 23
 
     collapseMarginsHint: true
 
@@ -65,8 +65,24 @@ PlasmaExtras.Representation {
                 Layout.fillWidth: true
                 spacing: Kirigami.Units.smallSpacing
 
+                // provider header: brand marker + name + plan
                 RowLayout {
                     Layout.fillWidth: true
+                    spacing: Kirigami.Units.smallSpacing
+
+                    Rectangle {
+                        Layout.preferredWidth: Kirigami.Units.iconSizes.small
+                        Layout.preferredHeight: Kirigami.Units.iconSizes.small
+                        radius: Kirigami.Units.smallSpacing
+                        color: section.modelData.provider_id === "claude" ? "#d97757" : "#10a37f"
+                        PlasmaComponents.Label {
+                            anchors.centerIn: parent
+                            text: section.modelData.provider_id === "claude" ? "C" : "O"
+                            color: "#ffffff"
+                            font.bold: true
+                            font.pixelSize: Kirigami.Theme.smallFont.pixelSize
+                        }
+                    }
                     Kirigami.Heading {
                         level: 4
                         text: section.modelData.display_name
@@ -132,20 +148,31 @@ PlasmaExtras.Representation {
 
                         PlasmaComponents.Label {
                             visible: !!win.modelData.resets_at
-                            text: win.modelData.resets_at
-                                  ? i18n("resets %1", Qt.formatDateTime(new Date(win.modelData.resets_at), "ddd HH:mm"))
-                                  : ""
+                            text: full.resetText(win.modelData.resets_at)
                             opacity: 0.55
                             font.pixelSize: Kirigami.Theme.smallFont.pixelSize
                         }
                     }
                 }
 
+                // extra usage / credits
+                PlasmaComponents.Label {
+                    Layout.fillWidth: true
+                    visible: !!section.modelData.credits
+                    text: section.modelData.credits
+                          ? i18n("Extra usage: $%1 / $%2",
+                                 section.modelData.credits.used.toFixed(2),
+                                 section.modelData.credits.cap.toFixed(0))
+                          : ""
+                    opacity: 0.7
+                    font.pixelSize: Kirigami.Theme.smallFont.pixelSize
+                }
+
                 // Local Claude usage (this machine)
                 ColumnLayout {
                     Layout.fillWidth: true
                     Layout.topMargin: Kirigami.Units.smallSpacing
-                    spacing: 1
+                    spacing: 2
                     visible: section.modelData.provider_id === "claude"
                              && root.snapshot.local_claude !== null
 
@@ -171,6 +198,30 @@ PlasmaExtras.Representation {
                         opacity: 0.7
                         elide: Text.ElideRight
                         font.pixelSize: Kirigami.Theme.smallFont.pixelSize
+                    }
+
+                    // 7-day token sparkline
+                    RowLayout {
+                        Layout.fillWidth: true
+                        Layout.topMargin: 2
+                        spacing: 2
+                        Repeater {
+                            model: root.snapshot.local_claude ? root.snapshot.local_claude.last7days : []
+                            delegate: Item {
+                                id: spark
+                                required property var modelData
+                                Layout.fillWidth: true
+                                implicitHeight: Kirigami.Units.gridUnit
+                                Rectangle {
+                                    anchors.bottom: parent.bottom
+                                    width: parent.width
+                                    radius: 1
+                                    color: Kirigami.Theme.highlightColor
+                                    opacity: 0.5
+                                    height: Math.max(2, parent.height * (spark.modelData.tokens / full.maxWeekTokens()))
+                                }
+                            }
+                        }
                     }
                 }
 
@@ -220,5 +271,23 @@ PlasmaExtras.Representation {
         for (var k in lc.model_split)
             parts.push(k.charAt(0).toUpperCase() + k.slice(1) + " " + Math.round(lc.model_split[k] * 100) + "%")
         return parts.join(" · ")
+    }
+    function maxWeekTokens() {
+        var lc = root.snapshot.local_claude
+        if (!lc || !lc.last7days) return 1
+        var m = 1
+        for (var i = 0; i < lc.last7days.length; i++) m = Math.max(m, lc.last7days[i].tokens)
+        return m
+    }
+    function resetText(iso) {
+        if (!iso) return ""
+        var diff = new Date(iso).getTime() - Date.now()
+        if (diff <= 0) return i18n("resetting…")
+        var mins = Math.round(diff / 60000)
+        if (mins < 60) return i18n("resets in %1m", mins)
+        var hrs = Math.floor(mins / 60)
+        if (hrs < 24) return i18n("resets in %1h %2m", hrs, mins % 60)
+        var days = Math.floor(hrs / 24)
+        return i18n("resets in %1d %2h", days, hrs % 24)
     }
 }
