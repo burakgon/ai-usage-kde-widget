@@ -31,6 +31,13 @@ PlasmaExtras.Representation {
                 QQC2.ToolTip.text: i18n("Refresh now")
                 QQC2.ToolTip.visible: hovered
             }
+            PlasmaComponents.ToolButton {
+                icon.name: "configure"
+                display: QQC2.AbstractButton.IconOnly
+                onClicked: Plasmoid.internalAction("configure").trigger()
+                QQC2.ToolTip.text: i18n("Configure…")
+                QQC2.ToolTip.visible: hovered
+            }
         }
     }
 

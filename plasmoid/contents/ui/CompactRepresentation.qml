@@ -42,7 +42,7 @@ MouseArea {
 
         PlasmaComponents.Label {
             Layout.alignment: Qt.AlignVCenter
-            text: root.hasData ? root.maxSession + "%" : "…"
+            text: root.hasData ? root.badgeValue + "%" : "…"
             font.bold: true
             color: Kirigami.Theme.textColor
         }

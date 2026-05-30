@@ -14,16 +14,20 @@ PlasmoidItem {
     property string lastError: ""
     property date lastUpdate: new Date(0)
 
-    readonly property int refreshInterval: 180  // seconds (safe poll rate)
+    // Poll rate (seconds), configurable; never below 60.
+    readonly property int refreshInterval: Math.max(60, Plasmoid.configuration.refreshInterval || 180)
 
-    // Highest session-window % across providers — drives the panel badge.
-    readonly property int maxSession: {
+    // Which window the panel badge reflects ("session" or "weekly"), configurable.
+    readonly property string badgeWindow: Plasmoid.configuration.badgeWindow || "session"
+
+    // Highest % of the selected window across providers — drives the panel badge.
+    readonly property int badgeValue: {
         var best = 0
         var ps = snapshot.providers || []
         for (var i = 0; i < ps.length; i++) {
             var ws = ps[i].windows || []
             for (var j = 0; j < ws.length; j++)
-                if (ws[j].kind === "session")
+                if (ws[j].kind === root.badgeWindow)
                     best = Math.max(best, ws[j].used_percent)
         }
         return Math.round(best)
