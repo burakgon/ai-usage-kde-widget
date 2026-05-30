@@ -44,7 +44,7 @@ MouseArea {
             Layout.alignment: Qt.AlignVCenter
             text: root.hasData ? root.maxSession + "%" : "…"
             font.bold: true
-            color: root.hasData ? root.barColor(root.maxSession) : Kirigami.Theme.textColor
+            color: Kirigami.Theme.textColor
         }
     }
 }
