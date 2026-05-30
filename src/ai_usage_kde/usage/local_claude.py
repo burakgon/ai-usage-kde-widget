@@ -42,7 +42,7 @@ def aggregate_files(paths: Iterable[Path], *, today: date) -> LocalClaudeUsage:
 
     for path in paths:
         try:
-            with open(path, "r", encoding="utf-8") as fh:
+            with open(path, "r", encoding="utf-8", errors="replace") as fh:
                 for raw in fh:
                     raw = raw.strip()
                     if not raw or '"usage"' not in raw:
@@ -79,10 +79,11 @@ def aggregate_files(paths: Iterable[Path], *, today: date) -> LocalClaudeUsage:
     if today_tokens > 0:
         split = {fam: n / today_tokens for fam, n in today_family_tokens.items()}
 
-    last7 = [DayBucket(date=cutoff + timedelta(days=i),
-                       tokens=day_tokens.get(cutoff + timedelta(days=i), 0),
-                       cost_usd=day_cost.get(cutoff + timedelta(days=i), 0.0))
-             for i in range(7)]
+    last7 = []
+    for i in range(7):
+        d = cutoff + timedelta(days=i)
+        last7.append(DayBucket(date=d, tokens=day_tokens.get(d, 0),
+                               cost_usd=day_cost.get(d, 0.0)))
 
     return LocalClaudeUsage(
         today_tokens=today_tokens,

@@ -27,3 +27,12 @@ def test_last7days_has_two_dated_buckets():
     by_date = {d.date: d for d in res.last7days}
     assert by_date[date(2026, 5, 30)].tokens == 1_002_000
     assert by_date[date(2026, 5, 29)].tokens == 1000  # opus 500 in + 500 out
+
+
+def test_pre_cutoff_line_excluded():
+    today = date(2026, 5, 30)  # 7-day window is 2026-05-24 .. 2026-05-30
+    res = aggregate_files([fixture("transcript_sample.jsonl")], today=today)
+    # the 2026-05-23 line (7777 tokens) is before the cutoff and must be dropped
+    assert res.today_tokens == 1_002_000
+    assert sum(b.tokens for b in res.last7days) == 1_002_000 + 1000
+    assert date(2026, 5, 23) not in {b.date for b in res.last7days}
