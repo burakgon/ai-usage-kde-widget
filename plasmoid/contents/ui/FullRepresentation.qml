@@ -14,8 +14,6 @@ PlasmaExtras.Representation {
     Layout.preferredWidth: Kirigami.Units.gridUnit * 19
     Layout.preferredHeight: Kirigami.Units.gridUnit * 23
 
-    collapseMarginsHint: true
-
     header: PlasmaExtras.PlasmoidHeading {
         RowLayout {
             anchors.fill: parent
