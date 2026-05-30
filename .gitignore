@@ -1,0 +1,32 @@
+# Brainstorming companion artifacts
+.superpowers/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.eggs/
+*.egg-info/
+build/
+dist/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
+# Qt / QML
+*.qmlc
+*.jsc
+
+# Editor / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# Local runtime / secrets (never commit tokens or captured API samples)
+*.local
+secrets/
+fixtures/live/
