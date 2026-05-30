@@ -1,7 +1,7 @@
 [project]
 name = "ai-usage-kde"
 version = "0.1.0"
-description = "KDE Plasma system-tray usage tracker for Claude Code and Codex"
+description = "Native KDE Plasma 6 widget showing Claude Code and Codex subscription usage"
 requires-python = ">=3.11"
 # PySide6 is provided by the system package (pacman), intentionally NOT a pip dep.
 dependencies = []
