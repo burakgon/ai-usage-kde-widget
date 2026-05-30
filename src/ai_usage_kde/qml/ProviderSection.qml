@@ -18,7 +18,7 @@ ColumnLayout {
                    color: "white"; font.bold: true; font.pixelSize: 12 }
         }
         Text { text: root.provider.display_name || ""; color: "#fcfcfc"
-               font.pointSize: 12.5; font.bold: true }
+               font.pixelSize: 13; font.bold: true }
         Item { Layout.fillWidth: true }
         Rectangle {
             visible: !!root.provider.plan

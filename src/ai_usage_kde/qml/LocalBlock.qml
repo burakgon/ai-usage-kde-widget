@@ -27,7 +27,7 @@ Rectangle {
         id: col
         anchors.fill: parent; anchors.margins: 8; spacing: 4
         Text { text: "LOCAL · THIS MACHINE"; color: "#717a80"
-               font.pointSize: 8.5; font.letterSpacing: 0.5 }
+               font.pixelSize: 9; font.letterSpacing: 0.5 }
         RowLayout {
             Layout.fillWidth: true
             Text { text: "Today"; color: "#bdc3c7"; font.pixelSize: 11 }
