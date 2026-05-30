@@ -78,7 +78,7 @@ PlasmaExtras.Representation {
                             text: section.modelData.provider_id === "claude" ? "C" : "O"
                             color: "#ffffff"
                             font.bold: true
-                            font.pixelSize: Kirigami.Theme.smallFont.pixelSize
+                            font.pixelSize: Kirigami.Theme.defaultFont.pixelSize
                         }
                     }
                     Kirigami.Heading {
@@ -91,7 +91,7 @@ PlasmaExtras.Representation {
                         visible: !!section.modelData.plan
                         text: section.modelData.plan || ""
                         opacity: 0.7
-                        font.pixelSize: Kirigami.Theme.smallFont.pixelSize
+                        font.pixelSize: Kirigami.Theme.defaultFont.pixelSize
                     }
                 }
 
@@ -101,7 +101,7 @@ PlasmaExtras.Representation {
                     text: section.modelData.error_message || section.modelData.status
                     opacity: 0.7
                     wrapMode: Text.WordWrap
-                    font.pixelSize: Kirigami.Theme.smallFont.pixelSize
+                    font.pixelSize: Kirigami.Theme.defaultFont.pixelSize
                 }
 
                 Repeater {
@@ -117,14 +117,14 @@ PlasmaExtras.Representation {
                             PlasmaComponents.Label {
                                 text: win.modelData.caption
                                 opacity: 0.85
-                                font.pixelSize: Kirigami.Theme.smallFont.pixelSize
+                                font.pixelSize: Kirigami.Theme.defaultFont.pixelSize
                             }
                             Item { Layout.fillWidth: true }
                             PlasmaComponents.Label {
                                 text: Math.round(win.modelData.used_percent) + "%"
                                 font.bold: true
                                 color: root.barColor(win.modelData.used_percent)
-                                font.pixelSize: Kirigami.Theme.smallFont.pixelSize
+                                font.pixelSize: Kirigami.Theme.defaultFont.pixelSize
                             }
                         }
 
@@ -148,7 +148,7 @@ PlasmaExtras.Representation {
                             visible: !!win.modelData.resets_at
                             text: full.resetText(win.modelData.resets_at)
                             opacity: 0.55
-                            font.pixelSize: Kirigami.Theme.smallFont.pixelSize
+                            font.pixelSize: Kirigami.Theme.defaultFont.pixelSize
                         }
                     }
                 }
@@ -163,7 +163,7 @@ PlasmaExtras.Representation {
                                  section.modelData.credits.cap.toFixed(0))
                           : ""
                     opacity: 0.7
-                    font.pixelSize: Kirigami.Theme.smallFont.pixelSize
+                    font.pixelSize: Kirigami.Theme.defaultFont.pixelSize
                 }
 
                 // Local Claude usage (this machine)
@@ -177,7 +177,7 @@ PlasmaExtras.Representation {
                     PlasmaComponents.Label {
                         text: i18n("Local · this machine")
                         opacity: 0.55
-                        font.pixelSize: Kirigami.Theme.smallFont.pixelSize
+                        font.pixelSize: Kirigami.Theme.defaultFont.pixelSize
                     }
                     PlasmaComponents.Label {
                         text: {
@@ -188,14 +188,14 @@ PlasmaExtras.Representation {
                                         lc.today_cost_usd.toFixed(2))
                         }
                         font.bold: true
-                        font.pixelSize: Kirigami.Theme.smallFont.pixelSize
+                        font.pixelSize: Kirigami.Theme.defaultFont.pixelSize
                     }
                     PlasmaComponents.Label {
                         Layout.fillWidth: true
                         text: full.splitText(root.snapshot.local_claude)
                         opacity: 0.7
                         elide: Text.ElideRight
-                        font.pixelSize: Kirigami.Theme.smallFont.pixelSize
+                        font.pixelSize: Kirigami.Theme.defaultFont.pixelSize
                     }
 
                     // 7-day token sparkline
@@ -251,7 +251,7 @@ PlasmaExtras.Representation {
                       ? i18n("Updated %1", Qt.formatTime(root.lastUpdate, "HH:mm:ss"))
                       : i18n("Loading…")
                 opacity: 0.6
-                font.pixelSize: Kirigami.Theme.smallFont.pixelSize
+                font.pixelSize: Kirigami.Theme.defaultFont.pixelSize
                 elide: Text.ElideRight
             }
         }
