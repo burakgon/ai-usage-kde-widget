@@ -1,11 +1,23 @@
+<div align="center">
+
 # AI Usage — KDE Plasma widget
+
+**Claude Code &amp; Codex subscription usage, native in your Plasma panel.**
+
+[![KDE Plasma 6](https://img.shields.io/badge/KDE%20Plasma-6-1d99f3?logo=kde&logoColor=white)](https://kde.org/plasma-desktop/)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-3776ab?logo=python&logoColor=white)](https://www.python.org/)
+![stdlib only](https://img.shields.io/badge/deps-stdlib%20only-44cc11)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
+<img src="docs/preview.png" alt="AI Usage plasmoid: a Plasma panel popup showing Claude Code and Codex usage bars and a local token breakdown" width="420">
+
+</div>
 
 A native **KDE Plasma 6** panel widget (plasmoid) that shows your **Claude Code** and **Codex**
 subscription usage at a glance: the 5-hour and 7-day rate-limit windows, your plan, extra-usage
-credits and reset times — plus a local Claude token/cost breakdown for the current machine.
-
-It looks and behaves like a first-class Plasma widget: theme-/accent-adaptive colors, a frosted
-popup with a proper shadow, and it sits on your panel next to your other widgets.
+credits and reset times — plus a local Claude token/cost breakdown for the current machine. It
+looks and behaves like a first-class Plasma widget: theme-/accent-adaptive colors, a frosted popup
+with a proper shadow, and it sits on your panel next to your other widgets.
 
 ## What it shows
 
