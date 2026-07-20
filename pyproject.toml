@@ -6,6 +6,9 @@ requires-python = ">=3.11"
 # PySide6 is provided by the system package (pacman), intentionally NOT a pip dep.
 dependencies = []
 
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
 [project.scripts]
 ai-usage-kde = "ai_usage_kde.cli:print_json"
 
