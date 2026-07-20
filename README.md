@@ -72,6 +72,9 @@ badge to refresh now; right-click for the context menu.
 ## Development
 
 ```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -e ".[test]"
 QT_QPA_PLATFORM=offscreen python -m pytest
 ```
 
