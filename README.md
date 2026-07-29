@@ -108,7 +108,10 @@ fingerprint. See [Privacy](docs/privacy.md) and
 ## Development
 
 ```bash
-PYTHONPATH=src pytest
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -e ".[test]"
+QT_QPA_PLATFORM=offscreen python -m pytest
 python3 -m compileall -q src
 qmllint plasmoid/contents/ui/*.qml
 QT_QPA_PLATFORM=offscreen /usr/lib/qt6/bin/qmltestrunner -input tests/qml
