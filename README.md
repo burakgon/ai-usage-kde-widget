@@ -11,7 +11,7 @@
 
 <br>
 
-<img src="docs/preview.png" alt="AI Usage running on KDE Plasma 6 with Claude Code and Codex quotas in the popup and compact usage in the panel" width="1100">
+<img src="docs/preview.png" alt="AI Usage popup opened directly from its compact quota item in the KDE Plasma panel" width="1100">
 
 </div>
 
