@@ -1,3 +1,3 @@
-"""ai-usage-kde: KDE tray usage tracker for Claude Code and Codex."""
+"""ai-usage-kde: KDE subscription usage tracker for AI coding tools."""
 
-__version__ = "0.1.0"
+__version__ = "2.0.0"
