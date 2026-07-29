@@ -11,7 +11,7 @@
 
 <br>
 
-<img src="docs/preview.png" alt="AI Usage popup opened directly from its compact quota item in the KDE Plasma panel" width="1100">
+<img src="docs/preview.png" alt="AI Usage popup opening upward from its compact quota item in the bottom KDE Plasma panel" width="1100">
 
 </div>
 
