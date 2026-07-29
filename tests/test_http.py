@@ -39,3 +39,33 @@ def test_http_post_form_sends_urlencoded(monkeypatch):
     assert captured["data"] == urlencode(payload).encode()
     assert resp.status == 200
     assert resp.json()["access_token"] == "new"
+
+
+def test_http_post_form_uses_rfc3986_encoding(monkeypatch):
+    captured = {}
+
+    def fake_urlopen(req, timeout=15.0):
+        captured["data"] = req.data
+        return _FakeResp()
+
+    monkeypatch.setattr(urllib.request, "urlopen", fake_urlopen)
+    http.http_post_form(
+        "https://example.com/token",
+        [("refresh_token", "a+b c&d")],
+        {},
+    )
+    assert captured["data"] == b"refresh_token=a%2Bb%20c%26d"
+
+
+def test_http_post_json_sends_compact_json(monkeypatch):
+    captured = {}
+
+    def fake_urlopen(req, timeout=15.0):
+        captured["data"] = req.data
+        captured["ctype"] = req.headers.get("Content-type")
+        return _FakeResp()
+
+    monkeypatch.setattr(urllib.request, "urlopen", fake_urlopen)
+    http.http_post_json("https://example.com/token", {"a": "b"}, {})
+    assert captured["data"] == b'{"a":"b"}'
+    assert captured["ctype"] == "application/json"

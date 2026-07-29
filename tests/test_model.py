@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 
 from ai_usage_kde.core.model import (
-    UsageWindow, Credits, ProviderUsage, ProviderStatus, threshold_color,
+    BillingUsage, ProviderStatus, ProviderUsage, UsageWindow, threshold_color,
 )
 
 
@@ -20,12 +20,22 @@ def test_provider_usage_session_percent_picks_session_window():
     w_week = UsageWindow(caption="Weekly · 7d", kind="weekly", used_percent=18.0, resets_at=None)
     p = ProviderUsage(provider_id="claude", display_name="Claude Code", icon="claude.svg",
                       plan="Max 20x", status=ProviderStatus.OK, error_message=None,
-                      windows=[w_session, w_week], credits=None, last_updated=None)
+                      windows=[w_session, w_week], billing_usage=None, last_updated=None)
     assert p.session_percent() == 42.0
 
 
 def test_provider_usage_session_percent_none_when_no_session():
     p = ProviderUsage(provider_id="codex", display_name="Codex", icon="codex.svg",
                       plan=None, status=ProviderStatus.UNAUTHENTICATED, error_message=None,
-                      windows=[], credits=None, last_updated=None)
+                      windows=[], billing_usage=None, last_updated=None)
     assert p.session_percent() is None
+
+
+def test_billing_usage_constructors_are_unambiguous():
+    bounded = BillingUsage.bounded_spend(5, 10)
+    assert bounded.kind == "bounded_spend"
+    assert bounded.used_amount == 5 and bounded.limit_amount == 10
+
+    balance = BillingUsage.flex_credit_balance(820, 32.8)
+    assert balance.kind == "flex_credit_balance"
+    assert balance.remaining_credits == 820 and balance.usd_value == 32.8

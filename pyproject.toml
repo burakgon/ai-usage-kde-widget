@@ -1,7 +1,7 @@
 [project]
 name = "ai-usage-kde"
-version = "0.1.0"
-description = "Native KDE Plasma 6 widget showing Claude Code and Codex subscription usage"
+version = "2.0.0"
+description = "Native KDE Plasma 6 widget showing AI coding subscription usage"
 requires-python = ">=3.11"
 # PySide6 is provided by the system package (pacman), intentionally NOT a pip dep.
 dependencies = []
@@ -10,7 +10,7 @@ dependencies = []
 test = ["pytest>=8"]
 
 [project.scripts]
-ai-usage-kde = "ai_usage_kde.cli:print_json"
+ai-usage-kde = "ai_usage_kde.cli:main"
 
 [build-system]
 requires = ["setuptools>=68"]
@@ -18,6 +18,8 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+namespaces = false
+include = ["ai_usage_kde*"]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]

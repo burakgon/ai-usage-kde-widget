@@ -5,11 +5,26 @@
         http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
     <kcfgfile name=""/>
     <group name="General">
-        <entry name="badgeWindow" type="String">
-            <default>session</default>
+        <entry name="trackedProviders" type="String">
+            <default>["claude","codex","cursor","antigravity","copilot","devin","grok"]</default>
+        </entry>
+        <entry name="panelProviders" type="String">
+            <default>["claude","codex"]</default>
+        </entry>
+        <entry name="providerMetrics" type="String">
+            <default>{"claude":["weekly"],"codex":["weekly"]}</default>
+        </entry>
+        <entry name="usageMode" type="String">
+            <default>remaining</default>
         </entry>
         <entry name="refreshInterval" type="Int">
-            <default>180</default>
+            <default>300</default>
+        </entry>
+        <entry name="configSchemaVersion" type="Int">
+            <default>2</default>
+        </entry>
+        <entry name="initialSetupComplete" type="Bool">
+            <default>false</default>
         </entry>
     </group>
 </kcfg>

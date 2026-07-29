@@ -8,12 +8,12 @@
             }
         ],
         "Category": "System Information",
-        "Description": "Claude Code and Codex subscription usage in your panel",
+        "Description": "AI coding subscription usage in your Plasma panel",
         "Icon": "speedometer",
         "Id": "com.bgn.aiusage",
         "License": "MIT",
         "Name": "AI Usage",
-        "Version": "1.1"
+        "Version": "2.0.0"
     },
     "X-Plasma-API-Minimum-Version": "6.0",
     "X-Plasma-MainScript": "ui/main.qml"

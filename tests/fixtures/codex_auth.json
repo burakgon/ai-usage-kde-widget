@@ -1,1 +1,1 @@
-{"tokens":{"access_token":"cx-acc-1","refresh_token":"cx-ref-1","id_token":"cx-id-1","account_id":"acct-uuid-1"}}
+{"OPENAI_API_KEY":null,"auth_mode":"chatgpt","last_refresh":"2026-05-30T10:00:00Z","tokens":{"access_token":"cx-acc-1","refresh_token":"cx-ref-1","id_token":"cx-id-1","account_id":"acct-uuid-1"}}
